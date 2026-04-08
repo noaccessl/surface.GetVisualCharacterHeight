@@ -1,74 +1,50 @@
 # glua-VisualCharacterHeight
- Adds a function that works out the visual height of the provided character(-s).
+###### Or... VisualTextHeight, if you wish.
 
- May be very helpful for positioning text by height.
- 
- Newlines are supported.
+Adds a function that gets the visual height of the provided characters.
+
+May be very helpful at positioning text by height where `surface.GetTextSize` happens to be inconvenient or insufficient.
+
+Newlines are supported.
 
 ### `GetTextSize` vs `GetVisualCharacterHeight`
-![image](image.png)
+![1](__1.png)
+![2](__2.png)
 
 ```lua
-local font = 'DermaLarge'
-local char = 'abcdefg'
+local Font = 'DermaLarge'
+local Chars = 'Lorem ipsum'
+-- local Chars = 'Lorem ipsum\ndolor sit amet'
 
-hook.Add( 'HUDPaint', '', function()
+hook.Add( 'HUDPaint', 'GetVisualCharacterHeightDemo', function()
 
-	surface.SetFont( font )
-	local w, h = surface.GetTextSize( char )
+	surface.SetFont( Font )
+
+	local w, h = surface.GetTextSize( Chars )
 
 	local x = ScrW() * 0.5 - w - 5
 	local y = ScrH() * 0.5
 
-	surface.SetDrawColor( 255, 180, 180 )
+	surface.SetDrawColor( 255, 255, 255 )
+	surface.DrawOutlinedRect( x - 1, y - 1, w + 2, h + 2 )
+
+	surface.SetDrawColor( 130, 150, 255 )
 	surface.DrawRect( x, y, w, h )
 
-	draw.SimpleText( char, font, x, y, color_black )
+	draw.DrawText( Chars, Font, x, y, color_black )
 
 	x = ScrW() * 0.5 + 5
 
-	local visualheight, roofheight = surface.GetVisualCharacterHeight( char, font )
+	local visualheight, roofheight = surface.GetVisualCharacterHeight( Chars, Font )
 
-	surface.SetDrawColor( 180, 255, 180 )
+	surface.SetDrawColor( 255, 255, 255 )
+	surface.DrawOutlinedRect( x - 1, y - 1, w + 2, visualheight + 2 )
+
+	surface.SetDrawColor( 150, 255, 150 )
 	surface.DrawRect( x, y, w, visualheight )
 
 	y = y - roofheight
-
-	draw.SimpleText( char, font, x, y, color_black )
-
-end )
-```
-
-#### With newlines
-![image](image-1.png)
-
-```lua
-local font = 'DermaLarge'
-local char = 'abc\ndefg'
-
-hook.Add( 'HUDPaint', '', function()
-
-	surface.SetFont( font )
-	local w, h = surface.GetTextSize( char )
-
-	local x = ScrW() * 0.5 - w - 5
-	local y = ScrH() * 0.5
-
-	surface.SetDrawColor( 255, 180, 180 )
-	surface.DrawRect( x, y, w, h )
-
-	draw.DrawText( char, font, x, y, color_black )
-
-	x = ScrW() * 0.5 + 5
-
-	local visualheight, roofheight = surface.GetVisualCharacterHeight( char, font )
-
-	surface.SetDrawColor( 180, 255, 180 )
-	surface.DrawRect( x, y, w, visualheight )
-
-	y = y - roofheight
-
-	draw.DrawText( char, font, x, y, color_black )
+	draw.DrawText( Chars, Font, x, y, color_black )
 
 end )
 ```
