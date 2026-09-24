@@ -1,11 +1,9 @@
-# glua-VisualCharacterHeight
-###### Or... VisualTextHeight, if you wish.
+# surface.GetVisualCharacterHeight
+###### (or surface.GetVisualTextHeight)
 
-Adds a function that gets the visual height of the provided characters.
+Calculates the visual height of provided characters (or text).
 
-May be very helpful at positioning text by height where `surface.GetTextSize` happens to be inconvenient or insufficient.
-
-Newlines are supported.
+Extremely useful for accurately and neatly positioning text by height.
 
 ### `GetTextSize` vs `GetVisualCharacterHeight`
 ![1](__1.png)
