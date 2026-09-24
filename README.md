@@ -11,10 +11,13 @@ Extremely useful for accurately and neatly positioning text by height.
 
 ```lua
 local Font = 'DermaLarge'
-local Chars = 'Lorem ipsum'
--- local Chars = 'Lorem ipsum\ndolor sit amet'
+local Chars = "Lorem ipsum"
+-- local Chars = "Lorem ipsum\ndolor sit amet"
 
-hook.Add( 'HUDPaint', 'GetVisualCharacterHeightDemo', function()
+local COL1 = Color( 130, 150, 255 )
+local COL2 = Color( 150, 255, 150 )
+
+hook.Add( 'HUDPaint', "GetVisualCharacterHeightDemo", function()
 
 	surface.SetFont( Font )
 
@@ -26,7 +29,7 @@ hook.Add( 'HUDPaint', 'GetVisualCharacterHeightDemo', function()
 	surface.SetDrawColor( 255, 255, 255 )
 	surface.DrawOutlinedRect( x - 1, y - 1, w + 2, h + 2 )
 
-	surface.SetDrawColor( 130, 150, 255 )
+	surface.SetDrawColor( COL1 )
 	surface.DrawRect( x, y, w, h )
 
 	draw.DrawText( Chars, Font, x, y, color_black )
@@ -38,7 +41,7 @@ hook.Add( 'HUDPaint', 'GetVisualCharacterHeightDemo', function()
 	surface.SetDrawColor( 255, 255, 255 )
 	surface.DrawOutlinedRect( x - 1, y - 1, w + 2, visualheight + 2 )
 
-	surface.SetDrawColor( 150, 255, 150 )
+	surface.SetDrawColor( COL2 )
 	surface.DrawRect( x, y, w, visualheight )
 
 	y = y - roofheight
